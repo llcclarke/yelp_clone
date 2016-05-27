@@ -5,7 +5,6 @@ feature "User can sign in and out" do
     it 'should see a sign in link and a sign up link' do
       visit '/'
       expect(page).to have_link('Sign in')
-      expect(page).to have_link('Sign up')
     end
 
     it 'should not see signout link' do
@@ -33,7 +32,36 @@ feature "User can sign in and out" do
     it 'should not see a sign in link and a sign up link' do
       visit '/'
       expect(page).not_to have_link('Sign in')
-      expect(page).not_to have_link('Sign up')
     end
   end
+
+  context 'user not signed in cannot do certain function' do
+    before do
+      Restaurant.create name: 'KFC', description: 'Deep fried goodness'
+      visit '/'
+    end
+    it 'should not be able to create a restaurant' do
+      click_link('Add a restaurant')
+      expect(current_path).to eq '/users/sign_in'
+    end
+    it 'should not be able to edit listings' do
+      click_link('Edit')
+      expect(current_path).to eq '/users/sign_in'
+    end
+    it 'should not be able to delete restaurants' do
+      click_link('Delete')
+      expect(current_path).to eq '/users/sign_in'
+    end
+    it 'should not be able to review a restaurant' do
+      click_link('Review')
+      expect(current_path).to eq '/users/sign_in'
+    end
+    it 'should not be able to delete a review' do
+      click_link('Delete')
+      expect(current_path).to eq '/users/sign_in'
+    end
+
+  end
+
+
 end

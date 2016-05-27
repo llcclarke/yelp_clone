@@ -22,6 +22,14 @@ feature 'restaurants' do
   end
 
   context 'creating restaurants' do
+    before do
+      visit '/'
+      click_link('Sign up')
+      fill_in('Email', with: 'test@email.com')
+      fill_in('Password', with: 'password')
+      fill_in('Password confirmation', with: 'password')
+      click_button('Sign up')
+    end
     scenario 'prompts user to fill pur a form, then displays the new restaurant' do
       visit '/restaurants'
       click_link 'Add a restaurant'
@@ -32,6 +40,7 @@ feature 'restaurants' do
     end
 
     context 'an invalid restaurant' do
+
       it 'does not let you submit a name that is too short' do
         visit '/restaurants'
         click_link 'Add a restaurant'
@@ -58,6 +67,14 @@ feature 'restaurants' do
   context 'editing restaurants' do
 
     before {Restaurant.create name: 'KFC', description: 'Deep fried goodness'}
+    before do
+      visit '/'
+      click_link('Sign up')
+      fill_in('Email', with: 'test@email.com')
+      fill_in('Password', with: 'password')
+      fill_in('Password confirmation', with: 'password')
+      click_button('Sign up')
+    end
 
     scenario 'let a user edit a restaurant' do
        visit '/restaurants'
@@ -74,6 +91,14 @@ feature 'restaurants' do
   context 'deleting restaurants' do
 
     before {Restaurant.create name: 'KFC', description: 'Deep fried goodness'}
+      before do
+      visit '/'
+      click_link('Sign up')
+      fill_in('Email', with: 'test@email.com')
+      fill_in('Password', with: 'password')
+      fill_in('Password confirmation', with: 'password')
+      click_button('Sign up')
+    end
 
     scenario 'removes a restaurant when a user clicks delete a link' do
       visit '/restaurants'
